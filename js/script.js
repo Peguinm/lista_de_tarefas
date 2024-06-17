@@ -58,6 +58,12 @@ function showFilters(){
 
 //#region alerta customizado
 
+//enum para os tipos de alerta
+const ALERT_TYPE = {
+    OK: 0,
+    WARNING: 1
+};
+
 //criar alertas customizados
 function createAlert(type, title, desc){
     var alertTitle = document.getElementById("alert_title");
@@ -74,8 +80,12 @@ function createAlert(type, title, desc){
 
     switch(type){
         //ok alert
-        case(0):
+        case(ALERT_TYPE.OK):
+            document.getElementById("ok_btn").classList.toggle("hidden");
+        break;
 
+        case(ALERT_TYPE.WARNING):
+            document.getElementById("cancel_btn").classList.toggle("hidden");
         break;
     }
 }
@@ -118,13 +128,13 @@ window.onload = (e) => {
 
     //nome de usuário indisponível ao cadatrar
     if(error == "username_not_avaiable"){
-        createAlert(0, "Aviso!", "Nome de usuário indisponível");
+        createAlert(ALERT_TYPE.OK, "Aviso!", "Nome de usuário indisponível");
         activeSigninForm();
     }
 
     //usuário ou senha incorretos no login
     if(error == "wrong_username_or_password"){
-        createAlert(0, "Aviso!", "Usuário ou senha incorretos");
+        createAlert(ALERT_TYPE.OK, "Aviso!", "Usuário ou senha incorretos");
         activeLoginForm();
     }
 
