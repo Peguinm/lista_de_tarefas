@@ -1,0 +1,384 @@
+/* -------------- Variáveis ------------- */ 
+:root{
+    --bgColor: #040810;
+    --primaryColor: #839FE7;
+    --secondaryColor: #34456F;
+    --accentColor: #877996;
+    --textColor: #DBE1F0;
+    --warningColor: rgb(243, 48, 48);
+}
+
+/* -------------- Setup ------------- */
+*{
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--textColor);
+}
+
+
+html{
+    height: 100%;
+    width: 100%;
+    scroll-behavior: smooth;
+    font-family: Arial, Helvetica;
+}
+
+body{
+    background: var(--bgColor);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+
+    padding: 3% 5% 5% 5%;
+}
+
+
+.span-error{
+    color: var(--warningColor);
+    display: block;
+    font-size: .8em;
+}
+
+.hidden{
+    display: none;
+}
+
+.normal-text{
+    font-size: 1.2em;
+}
+
+.title-text{
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.subtitle-text{
+    font-size: 1.3em;
+}
+
+
+.overlay{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bgColor);
+    opacity: .7;
+}
+
+.btn{
+    color: var(--bgColor);
+    width: 100%;
+    border-radius: 10px;
+    border: 0px;
+    padding: 12px 20px;
+    margin-bottom: 1em;
+    font-size: 1em;
+}
+
+.btn-primary{
+    background-color: var(--primaryColor);
+    color: var(--bgColor);
+}
+
+.btn-secondary{
+    background-color: white;
+    color: var(--bgColor);
+}
+
+.btn-warning{
+    background-color: var(--warningColor);
+    color: var(--textColor);
+}
+
+.btn:hover{
+    background-color: var(--secondaryColor);
+    color: var(--textColor);
+    cursor: pointer;
+}
+
+.btn-disabled{
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.btn-disabled:hover{
+    background-color: var(--warningColor);
+    cursor: not-allowed
+}
+
+/* -------------- Landing Page ------------- */
+.page-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    /* -------------- Container de textos ------------- */
+.content-container{
+    flex: 1;
+    min-width: 300px;
+    padding: 0 3em 0 0;
+    margin-bottom: 3em;
+    text-align: left;
+}
+
+.content-container > .title-text{
+    margin-top: .5em;
+    font-size: 3em;
+}
+
+.content-container > .subtitle-text{
+    margin-top: .5em;
+    font-size: 2em;
+}
+
+.content-container > .normal-text{
+    margin-top: 1em;
+    font-size: 1.2em;
+    text-align: justify;
+}
+
+    /* -------------- Container dos formulários ------------- */
+.forms-container{
+    flex: 1;
+    border-radius: 10px;
+    min-width: 300px;
+    display: grid;
+    place-items: center;
+    border-bottom: 5px solid var(--primaryColor);
+    border-top: 5px solid var(--primaryColor);
+}
+
+.signin-form, .login-form{
+    width: 80%;
+    height: 100%;
+}
+
+.signin-form > .title-text,
+.login-form > .title-text{
+    padding: 1.1em 0 .2em 0;
+}
+
+form > .subtitle-text{
+    padding: 0 0 1em 0;
+}
+
+form > .form-link{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    display: block;
+    text-align: center;
+}
+
+label, input{
+    display: block;
+}
+
+label{
+    padding: 10px;
+    margin-bottom: .2em;
+    color: var(--textColor);
+    font-size: 1em;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+textarea{
+    color: var(--bgColor);
+    width: 100%;
+    border-radius: 10px;
+    border: 0px;
+    padding: 12px 20px;
+    outline: none;
+    margin-bottom: 1em;
+    place-self: center;
+    font-size: 1em;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus{
+    box-shadow: 0 0 10px var(--primaryColor);
+}
+
+input[type="date"]{
+    font-size: 1.2em;
+}
+
+/* -------------- Alert Message ------------- */
+.alert-message{
+    position: fixed;
+    background-color: var(--secondaryColor);
+    min-width: 300px;
+    min-height: 250px;
+    width: 50%;
+    max-width: 400px;
+    max-height: 250px;
+    margin: auto;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2em;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.alert-container{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.alert-container > p{
+    word-wrap: normal;
+    min-width: 100%;
+    margin-bottom: 1em;
+}
+
+.alert-container > .btn-container{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.alert-container > .btn-container > button{
+    background-color: var(--);
+    border: 0;
+    border-radius: 5px;
+    padding: .5em;
+    font-size: 1em;
+    min-width: 100px;
+    color: var(--bgColor);
+    margin-top: 2em;
+    cursor: pointer;
+}
+
+#delete_btn{
+    background-color: var(--warningColor);
+    color: var(--textColor);
+}
+
+#cancel_btn{
+    background-color: var(--accentColor);
+    color: var(--textColor);
+}
+
+/* -------------- Página do usuário ------------- */
+.userpage-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    padding: 0 2em 1em 2em;
+}
+
+.tasks-container{
+    width: 70%;
+    height: 100%;
+    min-width: 300px;
+    padding: 0 2em 0 0;
+}
+
+.tasks-box{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primaryColor) var(--bgColor);
+}
+
+.task{
+    width: 100%;
+    padding: 2em;
+    border-bottom: 2px solid var(--secondaryColor);
+}
+
+.task > .task-header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.task > .normal-text{
+    text-align: justify;
+}
+
+.task > .btns-container{
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task > .btns-container > .edit-form{
+    width: 50%;
+}
+
+.filter-container{
+    width: 30%;
+    min-width: 200px;
+    height: 100%;
+}
+
+.filter-box{
+    width: 100%;
+    height: 100%;
+}
+
+.filter-form{
+    width: 100%;
+    height: 100%;
+}
+
+.filter-form > textarea{
+    height: 75px;
+    resize: none;
+}
+
+/* -------------- Responsive ------------- */
+@media only screen and (max-width: 850px){
+    .content-container{
+        text-align: center;
+        padding: 0 0 0 0;
+    }
+
+    .content-container > .normal-text{
+        text-align: center;
+    }
+
+    .forms-container{
+        height: auto;
+        border-bottom: 0;
+    }
+
+    /* -------------- userpage ------------- */
+    .userpage-container{
+        flex-direction: row;
+        justify-content: center;
+        padding: 1em 1em 5em 1em;
+    }
+
+    .tasks-container{
+        margin-top: 1em;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+
+    .filter-container{
+        width: 100%;
+        height: auto;
+    }
+}

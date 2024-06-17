@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasker</title>
+
+    <link rel="stylesheet" href="css/style.css"> 
+    <script type = "text/javascript" src = "js/script.js"></script>   
+</head>
+<body>
+    <div class = "page-container">
+        <div class = "content-container">
+            <p class = "title-text">Bem-vindo ao Tasker</p>
+            <p class = "subtitle-text">Organize suas tarefas de forma simples e eficiente</p>
+            <p class = "normal-text">
+                Tasker é a ferramenta ideal para gerenciar suas atividades diárias com facilidade. A aplicação permite criar, editar e excluir tarefas de forma intuitiva, mantendo sua produtividade em alta. Acesse suas tarefas de qualquer lugar. Cadastre-se agora e comece a organizar sua vida!
+            </p>
+        </div>
+
+        <div class = "forms-container">
+            <form class = "signin-form" id = "signin_form" action = "php/sign_in.php" onsubmit = "getFormData();" method = "post">
+                <p class = "title-text">Cadastro</p>
+                <p class = "subtitle-text">Crie sua conta</p>
+
+                <label for = "username_signin">Usuário</label>
+                <input type = "text" id = "username_signin" name = "username" placeholder = "Digite seu usuário" required>
+
+                <label for = "password_signin">Senha</label>
+                <input type = "password" id = "password_signin" name = "password" placeholder = "Digite sua senha" required>
+
+                <label for = "password_confirm_signin">Confirme sua senha<span class = "span-error hidden" id = "password_error"> As senhas estão diferentes</span></label>
+                <input id = "password_confirm_signin" type = "password" name = "password_confirm" placeholder = "Digite sua senha novamente" required>
+                
+                
+                <input id = "submit_sigin" class = "btn btn-primary" type = "submit" value = "Cadastrar">
+
+                <a id = "signin_change_link" class = "form-link" href = "#login_form">Já possuí uma conta?</a>
+            </form>
+
+            <form class = "login-form hidden" id = "login_form" action = "php/login.php" method = "post">
+                <p class = "title-text">Login</p>
+                <p class = "subtitle-text">Entre na sua conta</p>
+                <label>Usuário</label>
+                <input type = "text" name = "username" placeholder = "Digite seu usuário" required>
+
+                <label>Senha</label>
+                <input type = "password" name = "password" placeholder = "Digite sua senha" required>
+
+                <input class = "btn btn-primary" type = "submit" value = "Entrar">
+                <a id = "login_change_link" class = "form-link" href = "#signin_form">Crie sua conta</a>
+            </form>
+        </div>
+
+        <div id = "overlay" class = "overlay hidden"></div>
+
+        <div id = "alert" class = "alert-message hidden">
+            <div class = "alert-container">
+                <p id = "alert_title" class = "title-text">Aviso!</p>
+                <p id = "alert_subtitle" class = "normal-text">Nome de usuário indisponível</p>
+                <div class = "btn-container">
+                    <button id = "cancel_btn" class = "hidden">Cancelar</button>
+                    <button id = "ok_btn" class = "">Ok</button>
+                    <button id = "submit_btn" class = "hidden">Confirmar</button>
+                    <button id = "delete_btn" class = "hidden">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
