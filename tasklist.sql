@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `tasklist`.`tasks` (
   `description` VARCHAR(500) NOT NULL,
   `date` DATE NOT NULL,
   `userKey` INT(11) NOT NULL,
+  `priority` INT(1) NOT NULL,
   PRIMARY KEY (`taskId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;

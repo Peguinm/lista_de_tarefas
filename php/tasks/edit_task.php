@@ -16,6 +16,7 @@ if(isset($taskId)){
     if($row = $result->fetch_assoc()){
         $taskTitle = $row["taskname"];
         $taskDesc = $row["description"];
+        $taskPriority = $row["priority"];
     }
 
     $stmt->close();
@@ -46,6 +47,19 @@ $conn->close();
             <input type = "text" name = "taskName" value = "<?php echo $taskTitle ?>" required>
             <label>Descrição</label>
             <textarea name = "taskDesc" maxlength = "500" required><?php echo $taskDesc ?></textarea>
+            <label>Prioridade</label>
+            <select name = "taskPriority">
+                <?php
+                    $labels = ["Baixa", "Média", "Alta"];
+                    for($i = 1; $i <= 3; $i++){
+                        $selected = $i == $taskPriority ? "selected = 'selected'": "";
+                        $label = $labels[$i - 1];
+                        echo "
+                            <option value = {$i} {$selected}>{$label}</option>        
+                        ";
+                    }
+                ?>
+            </select>
 
             <input type = "hidden" name = "taskId" value = "<?php echo $taskId ?>">
 

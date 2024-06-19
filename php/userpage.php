@@ -16,6 +16,7 @@
     $filterDesc = isset($_POST["taskDesc"]) ? "%".$_POST["taskDesc"]."%" : "%%";
     $filterDateBegin = isset($_POST["taskDateBegin"]) ? $_POST["taskDateBegin"] : "";
     $filterDateEnd = isset($_POST["taskDateEnd"]) ? $_POST["taskDateEnd"] : "";
+    $filterPriority = isset($_POST["taskPriority"]) ? $_POST["taskPriority"] : "";
     
     //verificando se foi realizada uma filtragem
     $filtered = false;
@@ -44,8 +45,15 @@
     if($filterDateEnd != ""){
         $filterDateEnd = date("Y-m-d", strtotime($filterDateEnd));
         array_push($params, $filterDateEnd);
-        $sql .= "AND date <= ?";
+        $sql .= "AND date <= ? ";
         $paramsType .= "s";
+    }
+
+    //tratando o filtro da consulta
+    if($filterPriority != ""){
+        array_push($params, $filterPriority);
+        $sql .= "AND priority = ?";
+        $paramsType .= "i";
     }
 
     //armazenando as tarefas do usuário
@@ -101,6 +109,14 @@
                     <label>Data fim: </label>
                     <input type = "date" name = "taskDateEnd" value = "<?php echo $filterDateEnd;?>">
 
+                    <label>Prioridade</label>
+                    <select name = "taskPriority">
+                        <option value = "">Todas</option>
+                        <option value = "1">Baixa</option>
+                        <option value = "2">Média</option>
+                        <option value = "3">Alta</option>
+                    </select>
+
                     <input id = "clear_filter_btn" class = "btn btn-warning" type = "button" value = "Limpar" onclick = "location.reload();">
                 </form>
             </div>
@@ -126,11 +142,16 @@
                     $taskDesc = $row["description"];
                     $date = date("d/m/Y", strtotime($row["date"]));
 
+                    $priority = $row["priority"] - 1;
+                    $priorityColor = ["var(--submitColor)", "var(--primaryColor)", "var(--warningColor)"];
+                    $priorityLabel = ["Baixa", "Média", "Alta"];
+
                     echo '
                         <div class = "task">
                             <div class = "task-header">
                                 <p class = "title-text">'.$taskTitle.'</p>
-                                <p class = "subtitle-text"> Criação: '.$date.'</p>
+                                <p class = "subtitle-text">Prioridade: <span style = "color: '.$priorityColor[$priority].';">'.$priorityLabel[$priority].'</span></p>
+                                <p class = "subtitle-text">Criação: '.$date.'</p>
                             </div>
                             <p class = "normal-text">'.$taskDesc.'</p>
                             <div class = "btns-container">
