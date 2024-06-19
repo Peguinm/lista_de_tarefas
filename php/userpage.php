@@ -73,7 +73,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tasker</title>
-
+    <link rel = "icon" type="image/x-icon" href="../assets/favicon.ico">
     <link rel = "stylesheet" href = "../css/style.css">
     <script type = "text/javascript" src = "../js/script.js"></script>
     <script src="https://kit.fontawesome.com/da20799651.js" crossorigin="anonymous"></script>
