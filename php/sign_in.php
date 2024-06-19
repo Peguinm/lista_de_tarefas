@@ -32,6 +32,7 @@
             //redirecionando para  a página de usuário
             $_SESSION["logged"] = true;
             $_SESSION["userId"] = $userId;
+            $_SESSION["username"] = $username;
             header("Location: userpage.php");
         }
 

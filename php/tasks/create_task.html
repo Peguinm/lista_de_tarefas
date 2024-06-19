@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasker</title>
+
+    <link rel = "stylesheet" href = "../../css/style.css">
+    <script type = "text/javascript" src = "../../js/script.js"></script>
+</head>
+<body>
+    <div class = "change-container">
+        <form class = "change-task-form" action = "create_task.php" method = "post">
+            <p class = "title-text">Criar Tarefa</p>
+            <p class = "subtitle-text">Preencha as informações abaixo para criar sua tarefa</p>
+
+            <label>Nome</label>
+            <input type = "text" name = "taskName" required>
+            <label>Descrição</label>
+            <textarea name = "taskDesc" maxlength = "500" required></textarea>
+
+            <div class = "change-btn-container">
+                <button type = "button" class = "btn btn-warning" onclick = "cancelChange();">Cancelar</button>
+                <input type = "submit" class = "btn btn-primary" value = "Criar">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function cancelChange(){
+            window.location.href = "../userpage.php";
+        }
+    </script>
+</body>
+</html>

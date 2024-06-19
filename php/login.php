@@ -1,8 +1,8 @@
 <?php
     session_start();
-    require_once "connect.php";
+    include_once "connect.php";
 
-    //verificando se o tipo de request é post
+    //verificando se os campos foram definidos
     if(isset($_POST["username"]) && isset($_POST["password"])){
         $username = $_POST["username"];
         $password = $_POST["password"];
@@ -25,6 +25,7 @@
                 //redirecionando para  a página de usuário
                 $_SESSION["logged"] = true;
                 $_SESSION["userId"] = $row["userId"];
+                $_SESSION["username"] = $row["username"];
                 header("Location: userpage.php");
             }
         }else{
@@ -33,6 +34,8 @@
             header("Location: ../index.html?error={$error}");
         }
         $stmt->close();
+    }else{
+        header("Location: ../index.html");
     }
     $conn->close();
 ?>

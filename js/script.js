@@ -54,6 +54,33 @@ function showFilters(){
     document.getElementById("filter_form").classList.toggle("hidden");
 }
 
+//confirma a exclusão de uma tarefa
+function confirmDelete(form, type){
+    //alerta para a exclusão de uma tarefa
+    if(type == 0){
+        createAlert(ALERT_TYPE.DELETE, "Aviso!", "Tem certeza que deseja excluir essa tarefa?");
+    }
+
+    //alerta para a exclusão de conta
+    if(type == 1){
+        createAlert(ALERT_TYPE.DELETE, "Aviso!", "Tem certeza que deseja excluir sua conta?");
+    }
+
+    elementEvent("delete_btn", "click", () => {
+        form.submit();
+    });
+}
+
+//habilita ou desabilita os detalhes do usuário
+function showUserdetails(){
+    document.getElementById("user_details").classList.toggle("user-disable");
+}
+
+//realiza o logout do usuário da página
+function logout(){
+    window.location.href = "logout.php";
+}
+
 //#endregion
 
 //#region alerta customizado
@@ -61,11 +88,11 @@ function showFilters(){
 //enum para os tipos de alerta
 const ALERT_TYPE = {
     OK: 0,
-    WARNING: 1
+    DELETE: 1
 };
 
 //criar alertas customizados
-function createAlert(type, title, desc){
+function createAlert(type, title, desc, callback){
     var alertTitle = document.getElementById("alert_title");
     alertTitle.textContent = title;
 
@@ -81,11 +108,12 @@ function createAlert(type, title, desc){
     switch(type){
         //ok alert
         case(ALERT_TYPE.OK):
-            document.getElementById("ok_btn").classList.toggle("hidden");
+            document.getElementById("ok_btn").classList.remove("hidden");
         break;
 
-        case(ALERT_TYPE.WARNING):
-            document.getElementById("cancel_btn").classList.toggle("hidden");
+        case(ALERT_TYPE.DELETE):
+            document.getElementById("cancel_btn").classList.remove("hidden");
+            document.getElementById("delete_btn").classList.remove("hidden");
         break;
     }
 }
@@ -93,10 +121,14 @@ function createAlert(type, title, desc){
 //fechar um alerta
 function closeAlert(){
     var overlay =  document.getElementById("overlay");
-    overlay.classList.toggle("hidden");
+    overlay.classList.add("hidden");
 
     var alert =  document.getElementById("alert");
-    alert.classList.toggle("hidden");
+    alert.classList.add("hidden");
+
+    document.getElementById("ok_btn").classList.add("hidden");
+    document.getElementById("cancel_btn").classList.add("hidden");
+    document.getElementById("delete_btn").classList.add("hidden");
 }
 
 //#endregion
@@ -118,6 +150,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //ativando o menu de filtros
     elementEvent("filter_btn", "click", showFilters);
+
+    //ativando o menu de usuário
+    elementEvent("user_btn", "click", showUserdetails);
+
+    //logout do usuário
+    elementEvent("logout_btn", "click", logout);
 });
 
 //verificando erros ao carregar a página
@@ -125,6 +163,7 @@ window.onload = (e) => {
     const url = window.location.search;
     const urlParams = new URLSearchParams(url);
     var error = urlParams.get("error");
+    var success = urlParams.get("success");
 
     //nome de usuário indisponível ao cadatrar
     if(error == "username_not_avaiable"){
@@ -138,8 +177,24 @@ window.onload = (e) => {
         activeLoginForm();
     }
 
+    //tarefa criada com sucesso
+    if(success == "task_created"){
+        createAlert(ALERT_TYPE.OK, "Pronto!", "Tarefa criada com sucesso");
+    }
+
+    //tarefa modificada com sucesso
+    if(success == "task_edited"){
+        createAlert(ALERT_TYPE.OK, "Pronto!", "Tarefa modificada com sucesso");
+    }
+
+    //tarefa excluida com sucesso
+    if(success == "task_deleted"){
+        createAlert(ALERT_TYPE.OK, "Pronto!", "Tarefa excluída com sucesso");
+    }
+
     //removendo o erro da url após seu precessaomento
     urlParams.delete("error");
+    urlParams.delete("success");
     window.history.replaceState(
         {},
         '',
