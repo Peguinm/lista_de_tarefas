@@ -7,6 +7,5 @@ pode criar e logar na sua conta para acessar sua própria lista de tarefas.
 
 <b>Script para a criação das tabelas <a href = "https://github.com/Peguinm/lista_de_tarefas/blob/main/tasklist.sql">tasklist.sql</a></b><br>
 
-<b>Tecnologias</b><br>
-<p>HTML, CSS, JS, PHP e SQL</p>
+<b>Tecnologias:</b><br>HTML, CSS, JS, PHP e SQL
 
