@@ -1,4 +1,4 @@
-<h1>Projeto de List de Tarefas para uma vaga de estágio</h1>
+<h1>Projeto de Lista de Tarefas para uma vaga de estágio</h1>
 
 O projeto consiste em um sistema de lista de tarefas, no qual cada usuário
 pode criar e logar na sua conta para acessar sua própria lista de tarefas.
