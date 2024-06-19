@@ -16,6 +16,14 @@
     $filterDesc = isset($_POST["taskDesc"]) ? "%".$_POST["taskDesc"]."%" : "%%";
     $filterDateBegin = isset($_POST["taskDateBegin"]) ? $_POST["taskDateBegin"] : "";
     $filterDateEnd = isset($_POST["taskDateEnd"]) ? $_POST["taskDateEnd"] : "";
+    
+    //verificando se foi realizada uma filtragem
+    $filtered = false;
+
+    if($filterName != "%%" || $filterDesc != "%%" || 
+        $filterDateBegin != "" || $filterDateEnd != ""){
+            $filtered = true;
+    }
 
     $sql = "SELECT * FROM tasks 
         WHERE userKey = ? 
@@ -48,6 +56,15 @@
     $result = $stmt->get_result();
 
     $stmt->close();
+
+    //caso o menu de filtros tenha sido utilizado ele se mantém ativo
+    $filterBntlabel = "Mostrar Filtros";
+    $filterContainer = "hidden";
+
+    if($filtered){
+        $filterBntlabel = "Fechar Filtros";
+        $filterContainer = "";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -66,12 +83,12 @@
     <div class = "userpage-container">
         <div class = "filter-container">
             <div class = "filter-header">
-                <button id = "filter_btn" class = "btn btn-secondary">Fechar Filtros</button>
+                <button id = "filter_btn" class = "btn btn-secondary"><?php echo $filterBntlabel ?></button>
                 <input id = "filter_submit_btn" class = "btn btn-primary" type = "submit" form = "filter_form" value = "Filtrar">
             </div>
 
             <div class = "filter-box">
-                <form id = "filter_form" class = "filter-form" method = "post" action = "userpage.php">
+                <form id = "filter_form" class = "filter-form <?php echo $filterContainer ?>" method = "post" action = "userpage.php">
                     <label>Nome</label>
                     <input type = "text" name = "taskName" value = "<?php echo  trim($filterName, "%")?>">
 
