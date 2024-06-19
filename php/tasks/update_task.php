@@ -9,7 +9,9 @@ $taskId = $_POST["taskId"];
 
 if(isset($taskName) && isset($taskDesc) && isset($taskId)){
     $stmt = $conn->prepare(
-        "UPDATE tasks SET taskname = ?, description = ? WHERE taskId = ?"
+        "UPDATE tasks 
+        SET taskname = ?, description = ? 
+        WHERE taskId = ?"
     );
     $stmt->bind_param("ssi", $taskName, $taskDesc, $taskId);
     $stmt->execute();

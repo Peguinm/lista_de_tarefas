@@ -13,7 +13,7 @@ $date = date("Y-m-d");
 if(isset($name) && isset($desc) && isset($userId)){
     $stmt = $conn->prepare(
         "INSERT INTO tasks (taskname, description, date, userKey) 
-            VALUES (?, ?, ?, ?)"
+        VALUES (?, ?, ?, ?)"
     );
     $stmt->bind_param("sssi", $name, $desc, $date, $userId);
     $stmt->execute();

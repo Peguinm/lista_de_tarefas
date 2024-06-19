@@ -11,11 +11,38 @@
         exit();
     }
 
+    //filtros
+    $filterName = isset($_POST["taskName"]) ? "%".$_POST["taskName"]."%" : "%%";
+    $filterDesc = isset($_POST["taskDesc"]) ? "%".$_POST["taskDesc"]."%" : "%%";
+    $filterDateBegin = isset($_POST["taskDateBegin"]) ? $_POST["taskDateBegin"] : "";
+    $filterDateEnd = isset($_POST["taskDateEnd"]) ? $_POST["taskDateEnd"] : "";
+
+    $sql = "SELECT * FROM tasks 
+        WHERE userKey = ? 
+        AND taskname LIKE ?
+        AND description LIKE ?
+    ";
+    $paramsType = "iss";
+    $params = [$userId, $filterName, $filterDesc];
+
+    //tratando as datas para consulta no banco
+    if($filterDateBegin != ""){
+        $filterDateBegin = date("Y-m-d", strtotime($filterDateBegin));
+        array_push($params, $filterDateBegin);
+        $sql .= "AND date >= ? ";
+        $paramsType .= "s";
+    }
+
+    if($filterDateEnd != ""){
+        $filterDateEnd = date("Y-m-d", strtotime($filterDateEnd));
+        array_push($params, $filterDateEnd);
+        $sql .= "AND date <= ?";
+        $paramsType .= "s";
+    }
+
     //armazenando as tarefas do usuário
-    $stmt = $conn->prepare(
-        "SELECT * FROM tasks WHERE userKey = ?"
-    );
-    $stmt->bind_param("i", $userId);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param($paramsType, ...$params);
     $stmt->execute();
 
     $result = $stmt->get_result();
@@ -32,32 +59,39 @@
 
     <link rel = "stylesheet" href = "../css/style.css">
     <script type = "text/javascript" src = "../js/script.js"></script>
+    <script src="https://kit.fontawesome.com/da20799651.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
     <div class = "userpage-container">
         <div class = "filter-container">
-            <button id = "filter_btn" class = "btn btn-secondary">Mostrar Filtros</button>
+            <div class = "filter-header">
+                <button id = "filter_btn" class = "btn btn-secondary">Fechar Filtros</button>
+                <input id = "filter_submit_btn" class = "btn btn-primary" type = "submit" form = "filter_form" value = "Filtrar">
+            </div>
 
-            <form id = "filter_form" class = "filter-form hidden">
-                <label>Nome</label>
-                <input type = "text" name = "taskName">
+            <div class = "filter-box">
+                <form id = "filter_form" class = "filter-form" method = "post" action = "userpage.php">
+                    <label>Nome</label>
+                    <input type = "text" name = "taskName" value = "<?php echo  trim($filterName, "%")?>">
 
-                <label>Descrição</label>
-                <textarea name = "taskDesc"></textarea>
+                    <label>Descrição</label>
+                    <textarea name = "taskDesc"><?php echo  trim($filterDesc, "%")?></textarea>
 
-                <label>Data início: </label>
-                <input type = "date" name = "taskDateBegin">
+                    <label>Data início: </label>
+                    <input type = "date" name = "taskDateBegin" value = "<?php echo $filterDateBegin;?>">
 
-                <label>Data fim: </label>
-                <input type = "date" name = "taskDateEnd">
-                <input class = "btn btn-secondary" type = "submit" value = "Filtrar">
-            </form>
+                    <label>Data fim: </label>
+                    <input type = "date" name = "taskDateEnd" value = "<?php echo $filterDateEnd;?>">
+
+                    <input id = "clear_filter_btn" class = "btn btn-warning" type = "button" value = "Limpar" onclick = "location.reload();">
+                </form>
+            </div>
         </div>
 
         <div class = "tasks-container">
             <a href = "tasks/create_task.html" class = "create-task-link">
-                <button class = "btn btn-primary">Criar</button>
+                <button class = "btn btn-submit"><i class="fa-solid fa-plus" style = "color: var(--bgColor);"></i></button>
             </a>
 
             <div class = "tasks-box">
@@ -114,7 +148,7 @@
                 </div>
             </div>
             <div class = "show-user ">
-                <button class = "btn btn-primary" id = "user_btn">A</button>
+                <button class = "btn btn-primary" id = "user_btn"><i class="fa-solid fa-user" style = "color: var(--bgColor);"></i></button>
             </div>
         </div>
 

@@ -6,7 +6,8 @@ $taskId = $_POST["taskId"];
 
 if(isset($taskId)){
     $stmt = $conn->prepare(
-        "SELECT * FROM tasks WHERE taskId = ?"
+        "SELECT * FROM tasks 
+        WHERE taskId = ?"
     );
     $stmt->bind_param("i", $taskId);
     $stmt->execute();

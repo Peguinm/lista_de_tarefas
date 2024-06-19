@@ -6,7 +6,8 @@ $userId = $_POST["taskId"];
 
 if(isset($userId)){
     $stmt = $conn->prepare(
-        "DELETE FROM tasks WHERE taskId = ?"
+        "DELETE FROM tasks 
+        WHERE taskId = ?"
     );
     $stmt->bind_param("i", $userId);
     $stmt->execute();
